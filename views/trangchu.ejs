@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat multi media</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+
+<body>
+    <h1>
+        CHAT MULTI MEDIA
+    </h1>
+    <div id="room">
+        <input type="text" name='room' placeholder="Nhập tên room">
+        <input type="button" value="Join" onclick="sendRoom()">
+        <p id="error"></p>
+    </div>
+    <div id="login">
+        <input type="text" name='name' placeholder="Nhập tên user">
+        <input type="button" value="Login" onclick="sendName()">
+        <p id="error"></p>
+    </div>
+    <div id="chat">
+        <div class='left'>
+            <h4>User online</h4>
+            <ul id='list_user'></ul>
+        </div>
+        <div class="right">
+            <div class="right__title">
+                Thanh Nhã
+            </div>
+            <ul class="right__content">
+
+            </ul>
+            <div class="right__input">
+                <input type="text" name="message">
+                <input type="button" value="Send" onclick="sendMessage()">
+            </div>
+        </div>
+    </div>
+    <div class="chatRoom">
+        <ul class="listRoom">
+        </ul>
+        <div class="listMessage">
+            <div class="listMessage__roomCurrent">
+            
+            </div>
+            <ul class="listMessage__content">
+
+            </ul>
+            <div class="listMessage__input">
+                <input type="text" name="messageRoom" placeholder="Input your message...">
+                <input type="button" value="Send" onclick="sendMessageInRoom()">
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="/handle.js"></script>
+
+</body>
+
+</html>
