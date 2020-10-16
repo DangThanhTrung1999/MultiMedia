@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat multi media</title>
+    <script>
+        const NAME = "<%= name %>"
+    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
@@ -18,12 +21,12 @@
         <input type="button" value="Join" onclick="sendRoom()">
         <p id="error"></p>
     </div>
-    <div id="login">
+    <!-- <div id="login">
         <input type="text" name='name' placeholder="Nhập tên user">
         <input type="button" value="Login" onclick="sendName()">
         <p id="error"></p>
-    </div>
-    <div id="chat">
+    </div> -->
+    <!-- <div id="chat">
         <div class='left'>
             <h4>User online</h4>
             <ul id='list_user'></ul>
@@ -40,13 +43,13 @@
                 <input type="button" value="Send" onclick="sendMessage()">
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="chatRoom">
         <ul class="listRoom">
         </ul>
         <div class="listMessage">
             <div class="listMessage__roomCurrent">
-            
+
             </div>
             <ul class="listMessage__content">
 
@@ -54,6 +57,7 @@
             <div class="listMessage__input">
                 <input type="text" name="messageRoom" placeholder="Input your message...">
                 <input type="button" value="Send" onclick="sendMessageInRoom()">
+                <button onclick="call()">Call</button>
             </div>
         </div>
     </div>

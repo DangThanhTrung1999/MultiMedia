@@ -1,29 +1,33 @@
 const socket = io();
-
-function sendName() {
-  let name = document.getElementsByName("name")[0].value;
-  socket.emit("nameSignup", name);
+let room;
+function call() {
+  window.open(`http://www.localhost:8005/video/${room}`, "_blank");
 }
 
-function sendMessage() {
-  let message = document.getElementsByName("message")[0].value;
-  socket.emit("clientSendToServer", message);
-}
+// function sendName() {
+//   let name = document.getElementsByName("name")[0].value;
+//   socket.emit("nameSignup", name);
+// }
+
+// function sendMessage() {
+//   let message = document.getElementsByName("message")[0].value;
+//   socket.emit("clientSendToServer", message);
+// }
 
 function sendRoom() {
-  let room = document.getElementsByName("room")[0].value;
+  room = document.getElementsByName("room")[0].value;
   socket.emit("serverSendRoomName", room);
 }
 
 function sendMessageInRoom() {
-  let messageRoom = document.getElementsByName("messageRoom")[0].value;
-  socket.emit("clientSendMessageRoomToServer", messageRoom);
+  let message = document.getElementsByName("messageRoom")[0].value;
+  socket.emit("clientSendMessageRoomToServer", { message, NAME });
 }
 
 socket.on("sendCurrentRoomToClient", (roomName) => {
-  const login = document.getElementById("login");
+  // const login = document.getElementById("login");
   const chatRoom = document.getElementsByClassName("chatRoom")[0];
-  login.style.display = "none";
+  // login.style.display = "none";
   chatRoom.style.display = "flex";
 
   const roomCurrent = document.getElementsByClassName(
@@ -33,7 +37,7 @@ socket.on("sendCurrentRoomToClient", (roomName) => {
 });
 
 socket.on("sendListRoomToAllClient", (listRoom) => {
-  document.getElementsByClassName("listRoom")[0].innerHTML="";
+  document.getElementsByClassName("listRoom")[0].innerHTML = "";
   listRoom.forEach((e) => {
     let li = document.createElement("li");
     let content = document.createTextNode(e);
@@ -70,9 +74,9 @@ socket.on("serverSendToClient", (message) => {
   document.getElementsByClassName("right__content")[0].appendChild(node);
 });
 // Hiển thị danh sách tin nhắn ở chat room
-socket.on("serverSendToClientChatRoom", (data) => {
+socket.on("serverSendToClientChatRoom", ({ message, NAME }) => {
   let node = document.createElement("li");
-  let textNode = document.createTextNode(`${data.id}: ${data.message}`);
+  let textNode = document.createTextNode(`${NAME}: ${message}`);
   node.appendChild(textNode);
   document.getElementsByClassName("listMessage__content")[0].appendChild(node);
 });
