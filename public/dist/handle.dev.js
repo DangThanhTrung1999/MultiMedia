@@ -4,7 +4,7 @@ var socket = io();
 var room;
 
 function call() {
-  window.open("http://www.localhost:8005/video/".concat(room), "_blank");
+  window.open("https://multi-media.herokuapp.com/video/".concat(room), "_blank");
 } // function sendName() {
 //   let name = document.getElementsByName("name")[0].value;
 //   socket.emit("nameSignup", name);
