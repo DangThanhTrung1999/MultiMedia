@@ -18,6 +18,7 @@ function call() {
 function sendRoom() {
   room = document.getElementsByName("room")[0].value;
   socket.emit("serverSendRoomName", room);
+  document.getElementsByName("room")[0].value = "";
 }
 
 function sendMessageInRoom() {
@@ -26,6 +27,7 @@ function sendMessageInRoom() {
     message: message,
     NAME: NAME
   });
+  document.getElementsByName("messageRoom")[0].value = "";
 }
 
 socket.on("sendCurrentRoomToClient", function (roomName) {

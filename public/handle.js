@@ -17,11 +17,13 @@ function call() {
 function sendRoom() {
   room = document.getElementsByName("room")[0].value;
   socket.emit("serverSendRoomName", room);
+  document.getElementsByName("room")[0].value = "";
 }
 
 function sendMessageInRoom() {
   let message = document.getElementsByName("messageRoom")[0].value;
   socket.emit("clientSendMessageRoomToServer", { message, NAME });
+  document.getElementsByName("messageRoom")[0].value = "";
 }
 
 socket.on("sendCurrentRoomToClient", (roomName) => {

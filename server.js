@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 app.use(express.static("./public"));
 const port = process.env.PORT || 8005;
-
+require("dotenv").config();
 const mongoClient = require("mongoose");
 const bodyParser = require("body-parser");
 
@@ -20,9 +20,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+// "mongodb://localhost:27017/chat"
 
 mongoClient
-  .connect("mongodb://localhost:27017/chat", {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
