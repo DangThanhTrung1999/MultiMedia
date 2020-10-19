@@ -5,6 +5,9 @@ const port = process.env.PORT || 8005;
 require("dotenv").config();
 const mongoClient = require("mongoose");
 const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
 
 const { v4: uuidV4 } = require("uuid");
 
@@ -34,7 +37,6 @@ const userRoute = require("./routes/user.route");
 ///socket io
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
-const userArray = [];
 const arrRoom = [];
 
 io.on("connection", (socket) => {
@@ -87,16 +89,20 @@ app.use("/user", userRoute);
 app.get("/", (req, res) => {
   res.redirect("/user/login");
 });
+const authMiddleware = require("./auth.middleware");
 
-app.get("/home", (req, res) => {
+app.get("/home", (req, res, next) => {
+  authMiddleware.requireAuth(req, res, next);
   return res.render("trangchu", {
     name: req.session.name,
   });
 });
-app.get("/video", (req, res) => {
+app.get("/video", (req, res, next) => {
+  authMiddleware.requireAuth(req, res, next);
   res.redirect(`/video/${uuidV4()}`);
 });
-app.get("/video/:room", (req, res) => {
+app.get("/video/:room", (req, res, next) => {
+  authMiddleware.requireAuth(req, res, next);
   res.render("video", { roomId: req.params.room });
 });
 app.use((req, res, next) => {

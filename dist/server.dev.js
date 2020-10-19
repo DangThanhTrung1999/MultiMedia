@@ -12,6 +12,10 @@ var mongoClient = require("mongoose");
 
 var bodyParser = require("body-parser");
 
+var cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
+
 var _require = require("uuid"),
     uuidV4 = _require.v4;
 
@@ -47,7 +51,6 @@ var server = require("http").Server(app);
 
 var io = require("socket.io")(server);
 
-var userArray = [];
 var arrRoom = [];
 io.on("connection", function (socket) {
   console.log("Have user connect " + socket.id); ///Chat 1 1
@@ -100,15 +103,21 @@ app.use("/user", userRoute);
 app.get("/", function (req, res) {
   res.redirect("/user/login");
 });
-app.get("/home", function (req, res) {
+
+var authMiddleware = require("./auth.middleware");
+
+app.get("/home", function (req, res, next) {
+  authMiddleware.requireAuth(req, res, next);
   return res.render("trangchu", {
     name: req.session.name
   });
 });
-app.get("/video", function (req, res) {
+app.get("/video", function (req, res, next) {
+  authMiddleware.requireAuth(req, res, next);
   res.redirect("/video/".concat(uuidV4()));
 });
-app.get("/video/:room", function (req, res) {
+app.get("/video/:room", function (req, res, next) {
+  authMiddleware.requireAuth(req, res, next);
   res.render("video", {
     roomId: req.params.room
   });

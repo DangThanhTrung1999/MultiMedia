@@ -9,7 +9,7 @@ const create = async (req, res, next) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
-    return res.redirect("/home");
+    return res.redirect("/user/login");
   } catch (error) {
     next(error);
   }
@@ -28,6 +28,7 @@ const login = async (req, res, next) => {
   }
   if (password === user.password) {
     req.session.name = user.name;
+    res.cookie("userId", user.id);
     return res.redirect("/home");
   } else {
     return res.redirect("/user/login");
