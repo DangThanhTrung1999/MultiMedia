@@ -20,9 +20,18 @@
         }
 
         video {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            position: relative;
+        }
+        video::before {
+            position: absolute;
+            content: "sdsad";
+            top: 50%;
+            left: 50%;
+            z-index: 100;
         }
     </style>
 </head>

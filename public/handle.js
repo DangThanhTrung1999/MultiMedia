@@ -1,9 +1,9 @@
 const socket = io();
 let room;
 function call() {
-  window.open(`https://multi-media.herokuapp.com/video/${room}`, "_blank");
+  window.open(`http://localhost:8005/video/${room}`, "_blank");
 }
-
+// https://multi-media.herokuapp.com
 // function sendName() {
 //   let name = document.getElementsByName("name")[0].value;
 //   socket.emit("nameSignup", name);
@@ -25,7 +25,13 @@ function sendMessageInRoom() {
   socket.emit("clientSendMessageRoomToServer", { message, NAME });
   document.getElementsByName("messageRoom")[0].value = "";
 }
-
+document
+  .getElementsByClassName("input-message")[0]
+  .addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+      sendMessageInRoom();
+    }
+  });
 socket.on("sendCurrentRoomToClient", (roomName) => {
   // const login = document.getElementById("login");
   const chatRoom = document.getElementsByClassName("chatRoom")[0];
@@ -78,6 +84,11 @@ socket.on("serverSendToClient", (message) => {
 // Hiển thị danh sách tin nhắn ở chat room
 socket.on("serverSendToClientChatRoom", ({ message, NAME }) => {
   let node = document.createElement("li");
+  if (NAME === Cookies.get().name) {
+    node.classList.add("myClass");
+  } else {
+    node.classList.add("otherClass");
+  }
   let textNode = document.createTextNode(`${NAME}: ${message}`);
   node.appendChild(textNode);
   document.getElementsByClassName("listMessage__content")[0].appendChild(node);

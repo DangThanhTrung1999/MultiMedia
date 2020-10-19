@@ -33,6 +33,7 @@ html {
 .listMessage__content {
     min-height: 50vh;
     background-color: aliceblue;
+    list-style: none;
 }
 
 .left {
@@ -55,4 +56,21 @@ html {
 
 .right__content {
     height: 90%;
+}
+.myClass{
+    background-color:#FFFF99;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: fit-content;
+    padding: 5px;
+    font-weight: bold;
+}
+.otherClass{
+    background-color:#0000DD;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: fit-content;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
 }

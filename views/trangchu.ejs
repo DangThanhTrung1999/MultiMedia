@@ -21,43 +21,26 @@
         <input type="button" value="Join" onclick="sendRoom()">
         <p id="error"></p>
     </div>
-    <!-- <div id="login">
-        <input type="text" name='name' placeholder="Nhập tên user">
-        <input type="button" value="Login" onclick="sendName()">
-        <p id="error"></p>
-    </div> -->
-    <!-- <div id="chat">
-        <div class='left'>
-            <h4>User online</h4>
-            <ul id='list_user'></ul>
-        </div>
-        <div class="right">
-            <div class="right__title">
-                Thanh Nhã
-            </div>
-            <ul class="right__content">
-
-            </ul>
-            <div class="right__input">
-                <input type="text" name="message">
-                <input type="button" value="Send" onclick="sendMessage()">
-            </div>
-        </div>
-    </div> -->
-    <div class="chatRoom">
-        <ul class="listRoom">
+    <div class="chatRoom row">
+        <ul class="listRoom col-3">
         </ul>
-        <div class="listMessage">
+        <div class="listMessage col-9">
             <div class="listMessage__roomCurrent">
 
             </div>
             <ul class="listMessage__content">
 
             </ul>
-            <div class="listMessage__input">
-                <input type="text" name="messageRoom" placeholder="Input your message...">
-                <input type="button" value="Send" onclick="sendMessageInRoom()">
-                <button onclick="call()">Call</button>
+            <div class="listMessage__input" style="padding-bottom: 20px;">
+                <div class="form-row">
+                    <input class="form-control input-message" style="width: 50%;" type="text" name="messageRoom"
+                        placeholder="Input your message...">
+                    <input class="btn btn-success" style="margin: 5px; margin-top: 0;" type="button" value="Send"
+                        onclick="sendMessageInRoom()">
+                    <button class="btn btn-warning" style="margin: 5px;margin-top: 0;" onclick="call()">Call
+                        Video</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -65,6 +48,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
     <script src="/handle.js"></script>
 

@@ -29,6 +29,7 @@ const login = async (req, res, next) => {
   if (password === user.password) {
     req.session.name = user.name;
     res.cookie("userId", user.id);
+    res.cookie("name", user.name);
     return res.redirect("/home");
   } else {
     return res.redirect("/user/login");
