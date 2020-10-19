@@ -10,7 +10,10 @@ const myPeer = new Peer(undefined, {
   port: 443,
 });
 const myVideo = document.createElement("video");
-myVideo.muted = true;
+const videoTag = document.createElement("div");
+let textNode = document.createTextNode(Cookies.get().name);
+videoTag.appendChild(textNode);
+videoTag.appendChild(myVideo);
 const peers = {};
 
 navigator.mediaDevices
@@ -19,42 +22,50 @@ navigator.mediaDevices
     audio: true,
   })
   .then((stream) => {
-    addVideoStream(myVideo, stream);
+    addVideoStream(videoTag, myVideo, stream);
     ///answer
     myPeer.on("call", (call) => {
       call.answer(stream);
       const video = document.createElement("video");
+      const videoTag = document.createElement("div");
+      let textNode = document.createTextNode(Cookies.get().name);
+      videoTag.appendChild(textNode);
+      videoTag.appendChild(video);
       call.on("stream", (remoteStream) => {
-        addVideoStream(video, remoteStream);
+        addVideoStream(videoTag, video, remoteStream);
       });
     });
 
     ///call
-    socket.on("user-connected", (userId) => {
-      connectToNewUser(userId, stream);
+    socket.on("user-connected", (data) => {
+      connectToNewUser(data, stream);
     });
   });
 
 myPeer.on("open", (id) => {
-  socket.emit("join-room", ROOM_ID, id);
+  socket.emit("join-room", ROOM_ID, id, Cookies.get().name);
 });
 
 //call
-function connectToNewUser(userId, stream) {
-  const call = myPeer.call(userId, stream);
+function connectToNewUser(data, stream) {
+  const call = myPeer.call(data.userId, stream);
   const video = document.createElement("video");
+  const videoTag = document.createElement("div");
+  let textNode = document.createTextNode(data.name);
+  videoTag.appendChild(textNode);
+  videoTag.appendChild(video);
   call.on("stream", (localStream) => {
-    addVideoStream(video, localStream);
+    addVideoStream(videoTag, video, localStream);
   });
   call.on("close", () => {
     video.remove();
   });
 }
 
-async function addVideoStream(video, stream) {
+async function addVideoStream(videoTag, video, stream) {
   video.srcObject = stream;
   await video.addEventListener("loadedmetadata", () => {
     video.play();
   });
-  await videoGrid.append(video);
+  await videoGrid.append(videoTag);
 }

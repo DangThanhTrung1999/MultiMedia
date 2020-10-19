@@ -6,6 +6,7 @@ require("dotenv").config();
 const mongoClient = require("mongoose");
 const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
+const Cookies = require("js-cookie");
 
 app.use(cookieParser());
 
@@ -74,10 +75,13 @@ io.on("connection", (socket) => {
   });
 
   ///video chat
-  socket.on("join-room", (roomId, userId) => {
-    // console.log(roomId);
+  socket.on("join-room", (roomId, userId, name) => {
+    console.log("name join room ", name);
     socket.join(roomId);
-    socket.to(roomId).broadcast.emit("user-connected", userId);
+    socket.to(roomId).broadcast.emit("user-connected", {
+      userId,
+      name,
+    });
 
     socket.on("disconnect", () => {
       socket.to(roomId).broadcast.emit("user-disconnected", userId);
