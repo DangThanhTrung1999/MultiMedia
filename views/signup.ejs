@@ -8,12 +8,42 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <scrip src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></scrip>
+    <scrip src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></scrip>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/fontawesome.min.css"
         integrity="sha512-W5OxdLWuf3G9SMWFKJLHLct/Ljy7CmSxaABQLV2WIfAQPQZyLSDW/bKrw71Nx7mZKN5zcL+r8pRCZw+5bIoHHw=="
         crossorigin="anonymous" />
     <title>Sign up </title>
+    <script type="text/javascript">
+        function checkPass() {
+            let pass1 = document.getElementById('inputPassword');
+            let pass2 = document.getElementById('inputPassword2');
+            let message = document.getElementById('confirmMessage');
+            let colors = {
+                goodColor: "#fff",
+                goodColored: "#087a08",
+                badColor: "#fff",
+                badColored: "#ed0b0b"
+            };
+            let strings = {
+                "confirmMessage": ["Password match", "Password not match"]
+            };
+
+            if (pass1.value === pass2.value && (pass1.value + pass2.value) !== "") {
+                pass1.style.backgroundColor = colors["goodColor"];
+                message.style.color = colors["goodColored"];
+                message.innerHTML = strings["confirmMessage"][0];
+            }
+            else if (!(pass2.value === "")) {
+                pass2.style.backgroundColor = colors["badColor"];
+                message.style.color = colors["badColored"];
+                message.innerHTML = strings["confirmMessage"][1];
+            }
+            else {
+                message.innerHTML = "";
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -41,14 +71,18 @@
                                 <label for="inputPassword">Password</label>
                             </div>
 
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Remember password</label>
+                            <div class="form-label-group">
+                                <input type="password" id="inputPassword2" name="password" class="form-control"
+                                    placeholder="Re-enter password" required onblur="checkPass()">
+                                <label for="inputPassword2">Re-enter Password</label>
                             </div>
+                            <span id="confirmMessage" class="confirmMessage" style="margin-bottom: 10px;display: inline-block;"></span>
+                            
 
                             <button class="btn btn-lg btn-secondary btn-block text-uppercase" type="submit">Sign
                                 up</button>
-
+                            <a class="btn btn-lg btn-primary btn-block text-uppercase" href='/user/login'>Have
+                                account. Sign in here!</a>
                         </form>
                     </div>
                 </div>
