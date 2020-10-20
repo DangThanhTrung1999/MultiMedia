@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 
-<body>
+<body onload="sendName()">
     <h1>
         CHAT MULTI MEDIA
     </h1>
@@ -22,11 +22,15 @@
         <p id="error"></p>
     </div>
     <div class="chatRoom row">
-        <ul class="listRoom col-3">
-        </ul>
-        <div class="listMessage col-9">
-            <div class="listMessage__roomCurrent">
+        <div class="title col-3">
+            <p>Danh sách user và room</p>
+            <ul class="listRoom">
 
+            </ul>
+        </div>
+        <div class="listMessage col-9">
+            <div class="listMessage__roomCurrent title">
+                Bạn chưa join room
             </div>
             <ul class="listMessage__content">
 

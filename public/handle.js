@@ -3,16 +3,11 @@ let room;
 function call() {
   window.open(`https://multi-media.herokuapp.com/video/${room}`, "_blank");
 }
-// https://multi-media.herokuapp.com
-// function sendName() {
-//   let name = document.getElementsByName("name")[0].value;
-//   socket.emit("nameSignup", name);
-// }
-
-// function sendMessage() {
-//   let message = document.getElementsByName("message")[0].value;
-//   socket.emit("clientSendToServer", message);
-// }
+// https://multi-media.herokuapp.com/video/${room}
+// http://localhost:8005/video/${room}
+function sendName() {
+  socket.emit("sendNametoServer", NAME);
+}
 
 function sendRoom() {
   room = document.getElementsByName("room")[0].value;
@@ -33,10 +28,6 @@ document
     }
   });
 socket.on("sendCurrentRoomToClient", (roomName) => {
-  // const login = document.getElementById("login");
-  const chatRoom = document.getElementsByClassName("chatRoom")[0];
-  // login.style.display = "none";
-  chatRoom.style.display = "flex";
 
   const roomCurrent = document.getElementsByClassName(
     "listMessage__roomCurrent"
@@ -53,17 +44,8 @@ socket.on("sendListRoomToAllClient", (listRoom) => {
     document.getElementsByClassName("listRoom")[0].appendChild(li);
   });
 });
-///Xử lí khi user đăng ký thất bại do trùng tên
-socket.on("dktb", () => {
-  document.getElementById("error").innerHTML = "Username has exist";
-});
-///Lắng nghe nếu nhấp tên thành công thì show ra form chat
-socket.on("dktc", (name) => {
-  const login = document.getElementById("login");
-  const chat = document.getElementById("chat");
-  login.style.display = "none";
-  chat.style.display = "flex";
-});
+
+
 ///Hiển thị danh sách user
 socket.on("listUser", (listUser) => {
   document.getElementById("list_user").innerHTML = "";

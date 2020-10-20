@@ -4,6 +4,7 @@ html {
 
 * {
     box-sizing: border-box;
+    list-style: none;
 }
 
 #chat {
@@ -12,28 +13,41 @@ html {
 }
 
 .chatRoom {
-    display: none;
+    /* display: none; */
     width: 100%;
     background-color: blue;
     flex-direction: row;
+    justify-content: center;
 }
 
 .listRoom {
-    width: 30%;
+    width: 100%;
     background-color: antiquewhite;
+    height: 50vh;
+    overflow-y: scroll;
 }
 
 .listMessage {
     display: flex;
     width: 70%;
     flex-direction: column;
-   
+
+}
+
+.title>p {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 5px;
+    margin-bottom: 0;
+    text-align: center;
 }
 
 .listMessage__content {
-    min-height: 50vh;
+    height: 50vh;
     background-color: aliceblue;
     list-style: none;
+    overflow-y: scroll;
 }
 
 .left {
@@ -57,16 +71,18 @@ html {
 .right__content {
     height: 90%;
 }
-.myClass{
-    background-color:#FFFF99;
+
+.myClass {
+    background-color: #FFFF99;
     border-radius: 10px;
     margin-top: 10px;
     width: fit-content;
     padding: 5px;
     font-weight: bold;
 }
-.otherClass{
-    background-color:#0000DD;
+
+.otherClass {
+    background-color: #0000DD;
     border-radius: 10px;
     margin-top: 10px;
     width: fit-content;

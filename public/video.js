@@ -1,14 +1,18 @@
 const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
+
+///server peerLocal
 // const myPeer = new Peer(undefined, {
 //   host: "/",
 //   port: "3001",
 // });
+
 const myPeer = new Peer(undefined, {
   host: "peerjs-server.herokuapp.com",
   secure: true,
   port: 443,
 });
+
 const myVideo = document.createElement("video");
 const videoTag = document.createElement("div");
 let textNode = document.createTextNode(Cookies.get().name);
@@ -28,7 +32,7 @@ navigator.mediaDevices
       call.answer(stream);
       const video = document.createElement("video");
       const videoTag = document.createElement("div");
-      let textNode = document.createTextNode(Cookies.get().name);
+      let textNode = document.createTextNode(localStorage.getItem("name"));
       videoTag.appendChild(textNode);
       videoTag.appendChild(video);
       call.on("stream", (remoteStream) => {
@@ -51,6 +55,7 @@ function connectToNewUser(data, stream) {
   const call = myPeer.call(data.userId, stream);
   const video = document.createElement("video");
   const videoTag = document.createElement("div");
+  localStorage.setItem("name", data.name);
   let textNode = document.createTextNode(data.name);
   videoTag.appendChild(textNode);
   videoTag.appendChild(video);
@@ -64,8 +69,8 @@ function connectToNewUser(data, stream) {
 
 async function addVideoStream(videoTag, video, stream) {
   video.srcObject = stream;
-  await video.addEventListener("loadedmetadata", () => {
+  video.addEventListener("loadedmetadata", () => {
     video.play();
   });
-  await videoGrid.append(videoTag);
+  videoGrid.append(videoTag);
 }

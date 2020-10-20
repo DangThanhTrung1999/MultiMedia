@@ -6,7 +6,6 @@ require("dotenv").config();
 const mongoClient = require("mongoose");
 const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
-const Cookies = require("js-cookie");
 
 app.use(cookieParser());
 
@@ -19,10 +18,8 @@ app.use(
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json
 app.use(bodyParser.json());
 // "mongodb://localhost:27017/chat"
 
@@ -39,24 +36,18 @@ const userRoute = require("./routes/user.route");
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const arrRoom = [];
+const arrUser = [];
 
 io.on("connection", (socket) => {
   console.log("Have user connect " + socket.id);
-  ///Chat 1 1
-  // socket.on("nameSignup", (name) => {
-  //   if (userArray.indexOf(name) >= 0) {
-  //     socket.emit("dktb");
-  //   } else {
-  //     userArray.push(name);
-  //     socket.userName = name;
-  //     socket.emit("dktc", name);
-  //     io.sockets.emit("listUser", userArray);
-  //   }
-  // });
-  // socket.on("clientSendToServer", (message) => {
-  //   io.sockets.emit("serverSendToClient", message);
-  // });
+  let nameUser;
   ///Chat room
+  socket.on("sendNametoServer", (name) => {
+    if (arrUser.indexOf(name) < 0) {
+      nameUser = name;
+      arrUser.push(name);
+    }
+  });
   socket.on("serverSendRoomName", (roomName) => {
     socket.join(roomName);
     socket.Phong = roomName;
@@ -85,9 +76,14 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
       socket.to(roomId).broadcast.emit("user-disconnected", userId);
+      const index = arrUser.indexOf(name);
+      if (index > -1) {
+        arrUser.splice(index, 1);
+      }
     });
   });
 });
+
 app.use("/user", userRoute);
 
 app.get("/", (req, res) => {
