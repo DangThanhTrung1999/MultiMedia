@@ -1,7 +1,7 @@
 const socket = io();
 let room;
 function call() {
-  window.open(`https://multi-media.herokuapp.com/video/${room}`, "_blank");
+  window.open(`http://localhost:8005/video/${room}`, "_blank");
 }
 // https://multi-media.herokuapp.com/video/${room}
 // http://localhost:8005/video/${room}
@@ -20,6 +20,7 @@ function sendMessageInRoom() {
   socket.emit("clientSendMessageRoomToServer", { message, NAME });
   document.getElementsByName("messageRoom")[0].value = "";
 }
+
 document
   .getElementsByClassName("input-message")[0]
   .addEventListener("keyup", function (event) {
@@ -28,7 +29,6 @@ document
     }
   });
 socket.on("sendCurrentRoomToClient", (roomName) => {
-
   const roomCurrent = document.getElementsByClassName(
     "listMessage__roomCurrent"
   )[0];
@@ -44,7 +44,6 @@ socket.on("sendListRoomToAllClient", (listRoom) => {
     document.getElementsByClassName("listRoom")[0].appendChild(li);
   });
 });
-
 
 ///Hiển thị danh sách user
 socket.on("listUser", (listUser) => {
