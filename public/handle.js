@@ -1,7 +1,7 @@
 const socket = io();
 let room;
 function call() {
-  window.open(`http://localhost:8005/video/${room}`, "_blank");
+  window.open(`https://multi-media.herokuapp.com/video/${room}`, "_blank");
 }
 // https://multi-media.herokuapp.com/video/${room}
 // http://localhost:8005/video/${room}
